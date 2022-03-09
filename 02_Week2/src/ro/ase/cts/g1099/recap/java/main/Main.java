@@ -25,6 +25,8 @@ public class Main {
 		
 		myCredit.transfer(myDebit, 1000);
 		
+//		DECI TOTUL SE REZOLVA CU UN GIT PULL!!! yellow error smth on git
+		
 		
 	}
 
