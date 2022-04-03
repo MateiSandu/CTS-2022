@@ -58,6 +58,8 @@ public class Account {
 		}
 		return totalFee;
 	}
+	
+	
 
 	@Override
 	public String toString() {
