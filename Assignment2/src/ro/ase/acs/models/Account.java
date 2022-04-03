@@ -59,8 +59,6 @@ public class Account {
 		return totalFee;
 	}
 	
-	
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
