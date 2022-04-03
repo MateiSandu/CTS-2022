@@ -36,7 +36,7 @@ public class Product {
 			finalPrice = (initialPrice - (ProductType.FINAL_SALES.getDiscount() * initialPrice))
 					- accountDiscount * (initialPrice - (ProductType.FINAL_SALES.getDiscount() * initialPrice));
 			break;
-		
+
 		default:
 			throw new UnsupportedOperationException();
 		}
