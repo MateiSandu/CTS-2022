@@ -1,9 +1,11 @@
 package ro.ase.acs.models;
 
 public class Account {
+	
+	public AccountType accountType;
+	
 	public double	loan_value,rate;	
 	public int	daysActive,account_Type;
-	public static final int	STANDARD=0,BUDGET=1,PREMIUM=2,SUPER_PREMIUM=3;
 	
 	public double loan() {
 		System.out.println("The loan value is " + this.loan_value);
@@ -45,9 +47,9 @@ public class Account {
 	int temp = 365;
 	for	(int	i=0;i<accounts.length;i++)	{
 	account=accounts[i];
-	if(account.account_Type==Account.PREMIUM||account.account_Type==Account.SUPER_PREMIUM)	
-	totalFee+=.0125	*	(	//	1.25%	broker's	fee
-			account.loan_value*Math.pow(account.rate,(account.daysActive/365)) - account.loan_value);	//	interest-principal
+	if (account.accountType == AccountType.PREMIUM || account.accountType == AccountType.SUPER_PREMIUM)
+		totalFee += .0125 * ( // 1.25% broker's fee
+		account.loan_value * Math.pow(account.rate, (account.daysActive / 365)) - account.loan_value); // interest-principal
 	}
 	return	totalFee;
 	}
