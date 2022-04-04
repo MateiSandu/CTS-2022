@@ -75,7 +75,7 @@ public final class Account implements MonthlyRateInterface {
 	}
 
 //	this function relies on the creation of an account
-	public static double computeTotalFee(Account[] accounts) {
+	public static double computeTotalFee(Account[] accounts) throws Exception {
 		double totalFee = 0.0;
 		Account ac;
 		for (int i = 0; i < accounts.length; i++) {
@@ -86,8 +86,13 @@ public final class Account implements MonthlyRateInterface {
 		return totalFee;
 	}
 
-	private double getTotalValue(double loanValue, double rateValue, int daysActive) {
-		return loanValue * Math.pow(rateValue, (daysActive / 365)) - loanValue;
+	private double getTotalValue(double loanValue, double rateValue, int daysActive) throws Exception {
+		double totalValue = loanValue * Math.pow(rateValue, (daysActive / 365)) - loanValue;
+		if(totalValue < 0) {
+			throw new Exception();
+		}
+		return totalValue;
+		
 	}
 
 //	function for checking whether an account is premium or not
