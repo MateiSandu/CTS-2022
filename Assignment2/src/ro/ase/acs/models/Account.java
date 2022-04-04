@@ -1,9 +1,12 @@
 package ro.ase.acs.models;
 
-public class Account {
-	public AccountType accountType;
-	public double loanValue, rateValue;
-	public int daysActive;
+import ro.ase.acs.interfaces.MonthlyRateInterface;
+
+public class Account implements MonthlyRateInterface{
+	
+	private AccountType accountType;
+	private double loanValue, rateValue;
+	private int daysActive;
 
 	public double getLoanValue() {
 		System.out.println("The loan value is " + this.loanValue);
@@ -14,13 +17,18 @@ public class Account {
 		System.out.println("The rate is " + rateValue);
 		return this.rateValue;
 	}
+	
 
 	// must have method - the lead has requested it in all classes
+	@Override
 	public double getMonthlyRate() {
+		
 		return loanValue * rateValue;
 	}
 
-	public void setValue(double value) throws Exception {
+	
+	
+	public void setLoanValue(double value) throws Exception {
 		if (value < 0)
 			throw new Exception();
 		else {
@@ -66,5 +74,7 @@ public class Account {
 		this.rateValue = rate;
 		this.accountType = account_Type;
 	}
+
+
 
 }
