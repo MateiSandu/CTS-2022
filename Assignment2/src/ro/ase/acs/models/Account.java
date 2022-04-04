@@ -1,25 +1,23 @@
 package ro.ase.acs.models;
 
 	public class Account {
-		public double	loan_value,rate;	
+		public AccountType accountType;
+		public double loanValue, rateValue;	
 		public int	daysActive;
-		public static final int	STANDARD=0,BUDGET=1,PREMIUM=2,SUPER_PREMIUM=3;
 		
-		public AccountType account_type;
-		
-		public double loan() {
-			System.out.println("The loan value is " + this.loan_value);
-			return loan_value;
+		public double getLoanValue() {
+			System.out.println("The loan value is " + this.loanValue);
+			return loanValue;
 		}
 		
-		public double getRate() {
-			System.out.println("The rate is "+rate);
-			return this.rate;
+		public double getRateValue() {
+			System.out.println("The rate is "+rateValue);
+			return this.rateValue;
 		}
 		
 		//must have method - the lead has requested it in all classes
 		public double getMonthlyRate() {
-			return loan_value*rate;
+			return loanValue*rateValue;
 		}
 		
 		public void setValue(double value) throws Exception {
@@ -27,29 +25,23 @@ package ro.ase.acs.models;
 				throw new Exception();
 			else
 			{
-				loan_value = value;
+				loanValue = value;
 			}
 		}
 		
 		public String to_string() {
-			return "Loan: "+this.loan_value+"; rate: "+this.rate+"; days active:"+daysActive+"; Type: "+account_type+";";
-		}
-		
-		public void print() {
-			int vb = 10;
-			System.out.println("This is an account");
+			return "Loan: "+this.loanValue+"; rate: "+this.rateValue+"; days active:"+daysActive+"; Type: "+accountType+";";
 		}
 
-		public static double calculate(Account[] 	accounts)
+		public static double computeTotalFee(Account[] 	accounts)
 		{
 		double totalFee=0.0;
-		Account	account;
-		int temp = 365;
+		Account	instance;
 		for	(int	i=0;i<accounts.length;i++)	{
-		account=accounts[i];
-		if (account.account_type == AccountType.PREMIUM || account.account_type == AccountType.SUPER_PREMIUM)
+		instance=accounts[i];
+		if (instance.accountType == AccountType.PREMIUM || instance.accountType == AccountType.SUPER_PREMIUM)
 		totalFee+=.0125	*	(	//	1.25%	broker's	fee
-				account.loan_value*Math.pow(account.rate,(account.daysActive/365)) - account.loan_value);	//	interest-principal
+				instance.loanValue*Math.pow(instance.rateValue,(instance.daysActive/365)) - instance.loanValue);	//	interest-principal
 		}
 		return	totalFee;
 		}
@@ -59,10 +51,10 @@ package ro.ase.acs.models;
 				throw new Exception();
 			else
 			{
-				loan_value = value;
+				loanValue = value;
 			}
-			this.rate = rate;
-			this.account_type = account_Type;
+			this.rateValue = rate;
+			this.accountType = account_Type;
 		}
 		
 		
