@@ -11,25 +11,21 @@ import ro.ase.acs.interfaces.MonthlyRateInterface;
 public final class Account implements MonthlyRateInterface {
 
 	private AccountType accountType;
-	
+
 	private double loanValue, rateValue;
-	
+
 	private int daysActive;
-	
+
 	public Account(AccountType accountType, double loanValue, double rateValue) {
 		super();
-		if(loanValue < 0 || rateValue < 0) 
+		if (loanValue < 0 || rateValue < 0)
 			throw new InvalidParameterException();
 		else {
 			this.accountType = accountType;
 			this.loanValue = loanValue;
 			this.rateValue = rateValue;
-		}	
+		}
 	}
-	
-	
-	
-	
 
 	public Account() {
 		super();
@@ -71,23 +67,19 @@ public final class Account implements MonthlyRateInterface {
 	}
 
 	public void setDaysActive(int daysActive) {
-		if(daysActive < 0) {
+		if (daysActive < 0) {
 			throw new InvalidDaysActiveException();
-		
-			
-		}
-		else {
+
+		} else {
 			this.daysActive = daysActive;
 		}
 	}
 
-
 	@Override
 	public double getMonthlyRate() {
-		System.out.println("The monthly rate is "+ loanValue * rateValue );
+		System.out.println("The monthly rate is " + loanValue * rateValue);
 		return loanValue * rateValue;
 	}
-
 
 	public static double computeTotalFee(Account[] accounts) {
 		double totalFee = 0.0;
@@ -102,13 +94,12 @@ public final class Account implements MonthlyRateInterface {
 
 	private double getTotalValue(double loanValue, double rateValue, int daysActive) {
 		double totalValue = loanValue * Math.pow(rateValue, (daysActive / 365)) - loanValue;
-		if(totalValue < 0) {
+		if (totalValue < 0) {
 			throw new InvalidTotalValueException();
 		}
 		return totalValue;
-		
-	}
 
+	}
 
 	public boolean checkForPremiumAccount() {
 		if (accountType == AccountType.PREMIUM || accountType == AccountType.SUPER_PREMIUM) {
@@ -117,9 +108,9 @@ public final class Account implements MonthlyRateInterface {
 		} else {
 			System.out.println("Standard or Budget account");
 			return false;
-			
+
 		}
-			
+
 	}
 
 	@Override
