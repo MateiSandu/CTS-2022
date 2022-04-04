@@ -2,7 +2,7 @@ package ro.ase.acs.models;
 
 import ro.ase.acs.interfaces.MonthlyRateInterface;
 
-public class Account implements MonthlyRateInterface {
+public final class Account implements MonthlyRateInterface {
 
 	private AccountType accountType;
 	private double loanValue, rateValue;
@@ -70,6 +70,7 @@ public class Account implements MonthlyRateInterface {
 	// must have method - the lead has requested it in all classes
 	@Override
 	public double getMonthlyRate() {
+		System.out.println("The monthly rate is "+ loanValue * rateValue );
 		return loanValue * rateValue;
 	}
 
@@ -85,7 +86,7 @@ public class Account implements MonthlyRateInterface {
 		return totalFee;
 	}
 
-	public double getTotalValue(double loanValue, double rateValue, int daysActive) {
+	private double getTotalValue(double loanValue, double rateValue, int daysActive) {
 		return loanValue * Math.pow(rateValue, (daysActive / 365)) - loanValue;
 	}
 
