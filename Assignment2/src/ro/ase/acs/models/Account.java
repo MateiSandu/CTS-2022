@@ -1,23 +1,35 @@
 package ro.ase.acs.models;
 
+import java.security.InvalidParameterException;
+
+import ro.ase.acs.exceptions.InvalidDaysActiveException;
+import ro.ase.acs.exceptions.InvalidLoanValueException;
+import ro.ase.acs.exceptions.InvalidRateValueException;
+import ro.ase.acs.exceptions.InvalidTotalValueException;
 import ro.ase.acs.interfaces.MonthlyRateInterface;
 
 public final class Account implements MonthlyRateInterface {
 
 	private AccountType accountType;
+	
 	private double loanValue, rateValue;
+	
 	private int daysActive;
 	
-	public Account(AccountType accountType, double loanValue, double rateValue) throws Exception {
+	public Account(AccountType accountType, double loanValue, double rateValue) {
 		super();
-		if(this.loanValue < 0  || this.rateValue < 0) {
-			throw new Exception();
-		} else {
+		if(loanValue < 0 || rateValue < 0) 
+			throw new InvalidParameterException();
+		else {
 			this.accountType = accountType;
 			this.loanValue = loanValue;
 			this.rateValue = rateValue;
-		}
+		}	
 	}
+	
+	
+	
+	
 	
 	public Account() {
 		super();
@@ -32,9 +44,9 @@ public final class Account implements MonthlyRateInterface {
 		return loanValue;
 	}
 
-	public void setLoanValue(double loanValue) throws Exception {
-		if (this.loanValue < 0)
-			throw new Exception();
+	public void setLoanValue(double loanValue) {
+		if (loanValue < 0)
+			throw new InvalidLoanValueException();
 		else {
 			this.loanValue = loanValue;
 		}
@@ -45,9 +57,9 @@ public final class Account implements MonthlyRateInterface {
 		return this.rateValue;
 	}
 
-	public void setRateValue(double rateValue) throws Exception {
-		if (this.rateValue < 0)
-			throw new Exception();
+	public void setRateValue(double rateValue) {
+		if (rateValue < 0)
+			throw new InvalidRateValueException();
 		else {
 			this.rateValue = rateValue;
 		}
@@ -58,9 +70,11 @@ public final class Account implements MonthlyRateInterface {
 		return daysActive;
 	}
 
-	public void setDaysActive(int daysActive) throws Exception {
-		if(this.daysActive < 0) {
-			throw new Exception();
+	public void setDaysActive(int daysActive) {
+		if(daysActive < 0) {
+			throw new InvalidDaysActiveException();
+		
+			
 		}
 		else {
 			this.daysActive = daysActive;
@@ -75,7 +89,7 @@ public final class Account implements MonthlyRateInterface {
 	}
 
 //	this function relies on the creation of an account
-	public static double computeTotalFee(Account[] accounts) throws Exception {
+	public static double computeTotalFee(Account[] accounts) {
 		double totalFee = 0.0;
 		Account ac;
 		for (int i = 0; i < accounts.length; i++) {
@@ -86,10 +100,10 @@ public final class Account implements MonthlyRateInterface {
 		return totalFee;
 	}
 
-	private double getTotalValue(double loanValue, double rateValue, int daysActive) throws Exception {
+	private double getTotalValue(double loanValue, double rateValue, int daysActive) {
 		double totalValue = loanValue * Math.pow(rateValue, (daysActive / 365)) - loanValue;
 		if(totalValue < 0) {
-			throw new Exception();
+			throw new InvalidTotalValueException();
 		}
 		return totalValue;
 		
@@ -98,9 +112,14 @@ public final class Account implements MonthlyRateInterface {
 //	function for checking whether an account is premium or not
 	public boolean checkForPremiumAccount() {
 		if (accountType == AccountType.PREMIUM || accountType == AccountType.SUPER_PREMIUM) {
+			System.out.println("Premium or Super-premium account");
 			return true;
-		} else
+		} else {
+			System.out.println("Standard or Budget account");
 			return false;
+			
+		}
+			
 	}
 
 //	StringBuider/StringBuffer
