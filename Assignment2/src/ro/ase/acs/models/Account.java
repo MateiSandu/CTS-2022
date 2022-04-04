@@ -30,7 +30,7 @@ public final class Account implements MonthlyRateInterface {
 	
 	
 	
-	
+
 	public Account() {
 		super();
 		this.accountType = AccountType.STANDARD;
@@ -81,14 +81,14 @@ public final class Account implements MonthlyRateInterface {
 		}
 	}
 
-	// must have method - the lead has requested it in all classes
+
 	@Override
 	public double getMonthlyRate() {
 		System.out.println("The monthly rate is "+ loanValue * rateValue );
 		return loanValue * rateValue;
 	}
 
-//	this function relies on the creation of an account
+
 	public static double computeTotalFee(Account[] accounts) {
 		double totalFee = 0.0;
 		Account ac;
@@ -109,7 +109,7 @@ public final class Account implements MonthlyRateInterface {
 		
 	}
 
-//	function for checking whether an account is premium or not
+
 	public boolean checkForPremiumAccount() {
 		if (accountType == AccountType.PREMIUM || accountType == AccountType.SUPER_PREMIUM) {
 			System.out.println("Premium or Super-premium account");
@@ -122,7 +122,6 @@ public final class Account implements MonthlyRateInterface {
 			
 	}
 
-//	StringBuider/StringBuffer
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
